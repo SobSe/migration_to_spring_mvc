@@ -25,11 +25,14 @@ public class PostRepository {
   }
 
   public List<Post> all() {
-    return new ArrayList<>(posts.values());
+    return new ArrayList<>(posts.values()
+            .stream()
+            .filter(p -> !p.isRemoved())
+            .collect(Collectors.toList()));
   }
 
   public Optional<Post> getById(long id) {
-    return Optional.of(posts.get(id));
+    return Optional.ofNullable(posts.get(id));
   }
 
   public Post save(Post post) {
@@ -43,12 +46,14 @@ public class PostRepository {
   }
 
   private Optional<Post> update(Post post) {
-      Optional<Post> foundPost = Optional.of(posts.get(post.getId()));
+      Optional<Post> foundPost = Optional.ofNullable(posts.get(post.getId()));
       foundPost.ifPresent(value -> value.setContent(post.getContent()));
       return  foundPost;
   }
 
   public Optional<Post>  removeById(long id) {
-    return Optional.of(posts.remove(id));
+    Optional<Post> foundPost = Optional.ofNullable(posts.get(id));
+    foundPost.ifPresent(value -> value.setRemoved(true));
+    return  foundPost;
   }
 }

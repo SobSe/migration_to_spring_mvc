@@ -2,6 +2,7 @@ package ru.sobse.controller;
 
 import org.springframework.web.bind.annotation.*;
 import ru.sobse.model.Post;
+import ru.sobse.model.PostDTO;
 import ru.sobse.service.PostService;
 
 import java.io.IOException;
@@ -17,17 +18,17 @@ public class PostController {
   }
 
   @GetMapping
-  public List<Post> all() {
+  public List<PostDTO> all() {
     return service.all();
   }
 
   @GetMapping("/{id}")
-  public Post getById(@PathVariable long id) {
+  public PostDTO getById(@PathVariable long id) {
     return service.getById(id);
   }
 
   @PostMapping
-  public Post save(@RequestBody Post post) throws IOException {
+  public PostDTO save(@RequestBody PostDTO post) throws IOException {
     return service.save(post);
   }
 

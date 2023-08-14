@@ -1,17 +1,15 @@
 package ru.sobse.model;
 
-public class Post {
+public class PostDTO {
   private long id;
   private String content;
-  private boolean removed;
 
-  public Post() {
+  public PostDTO() {
   }
 
-  public Post(long id, String content) {
+  public PostDTO(long id, String content) {
     this.id = id;
     this.content = content;
-    this.removed = false;
   }
 
   public long getId() {
@@ -30,19 +28,11 @@ public class Post {
     this.content = content;
   }
 
-  public void setRemoved(boolean removed) {
-    this.removed = removed;
-  }
-
-  public boolean isRemoved() {
-    return removed;
-  }
-
   @Override
   public boolean equals(Object obj) {
     if (obj == this) return true;
     if (obj == null || obj.getClass() != getClass()) return false;
-    Post post = (Post) obj;
+    PostDTO post = (PostDTO) obj;
     return this.id == post.getId();
   }
 }
